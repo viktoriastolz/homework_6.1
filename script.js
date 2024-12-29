@@ -2,13 +2,11 @@
 
 function removeChars(inputString, charsToRemove) {
   let result = '';
-  
   for (const char of inputString) {
     if (!charsToRemove.includes(char)) {
       result += char; 
     }
   }
-
   return result;
 }
 
@@ -20,9 +18,7 @@ if (!userInput) {
   if (!charsToRemoveInput) {
     alert("Input canceled or empty characters to remove provided.");
   } else {
-    const charsToRemove = charsToRemoveInput.split(',')
-      .map(char => char.trim())
-      .filter(char => char.length === 1);
+    const charsToRemove = charsToRemoveInput.split(',').map(char => char.trim()).filter(char => char.length === 1);
 
     if (charsToRemove.length === 0) {
       alert("No valid characters to remove provided.");
