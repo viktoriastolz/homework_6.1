@@ -1,43 +1,36 @@
 "use strict";
 
 function removeChars(inputString, charsToRemove) {
-  if (typeof inputString !== 'string') {
-    alert('Invalid input: the first argument must be a string.');
-    return inputString;
-  }
-
-  if (!Array.isArray(charsToRemove)) {
-    alert('Invalid input: the second argument must be an array of characters.');
-    return inputString;
-  }
-
-  for (let i = 0; i < charsToRemove.length; i++) {
-    if (typeof charsToRemove[i] !== 'string' || charsToRemove[i].length !== 1) {
-      alert('Invalid input: all elements in the second argument must be single characters.');
-      return inputString;
+  let result = '';
+  
+  for (const char of inputString) {
+    if (!charsToRemove.includes(char)) {
+      result += char; 
     }
   }
 
-  const regex = new RegExp('[' + charsToRemove.join('') + ']', 'g');
-  return inputString.replace(regex, '');
+  return result;
 }
 
-const userInput = prompt("Enter a string:", "");
-if (userInput === null) {
-  alert("Input canceled.");
+const userInput = prompt("Enter a string:", "").trim();
+if (!userInput) {
+  alert("Input canceled or empty string provided.");
 } else {
-  const charsToRemoveInput = prompt("Enter characters to remove (separated by commas):", "");
-  if (charsToRemoveInput === null) {
-    alert("Input canceled.");
+  const charsToRemoveInput = prompt("Enter characters to remove (separated by commas):", "").trim();
+  if (!charsToRemoveInput) {
+    alert("Input canceled or empty characters to remove provided.");
   } else {
+    const charsToRemove = charsToRemoveInput.split(',')
+      .map(char => char.trim())
+      .filter(char => char.length === 1);
 
-    const charsToRemove = charsToRemoveInput.split(',').map(char => char.trim()).filter(char => char !== '');
-    const result = removeChars(userInput, charsToRemove);
-    alert(`Result: ${result}`);
+    if (charsToRemove.length === 0) {
+      alert("No valid characters to remove provided.");
+    } else {
+      const result = removeChars(userInput, charsToRemove);
+      alert(`Result: ${result}`);
+    }
   }
 }
-
-
-
 
 
